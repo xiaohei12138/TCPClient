@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.administrator.myapplication.WIFI_CTRL">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="ip:"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent" />
+        <EditText
+            android:id="@+id/edit_tcp_server_ip"
+            android:layout_width="0dp"
+            android:layout_weight="4"
+            android:layout_height="match_parent" />
+        <TextView
+            android:text="com:"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent" />
+        <EditText
+            android:id="@+id/edit_tcp_server_com"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="5"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/btn_connect_tcp_server"
+            android:text="连接"
+            android:layout_weight="0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="wifi ssid:"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/edit_neeed_connect_wifi_ssid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:text="password："
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/edit_neeed_connect_wifi_pwd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="5"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/btn_connect_wifi"
+            android:text="连接wifi"
+            android:layout_weight="0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Switch
+            android:id="@+id/switch_1"
+            android:textOff="switch1 off"
+            android:textOn="switch1 on"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:switchMinWidth="120dp"
+            android:layout_height="wrap_content" />
+        <Switch
+            android:id="@+id/switch_2"
+            android:textOff="switch2 off"
+            android:textOn="switch2 on"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:switchMinWidth="120dp"
+            android:layout_height="wrap_content" />
+
+        <Switch
+            android:id="@+id/switch_3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:switchMinWidth="120dp"
+            android:textOff="switch3 off"
+            android:textOn="switch3 on" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/textview_switch1_status"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:text="获取中"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/textview_switch2_status"
+            android:layout_weight="1"
+            android:text="获取中"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/textview_switch3_status"
+            android:layout_weight="1"
+            android:text="获取中"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</LinearLayout>
