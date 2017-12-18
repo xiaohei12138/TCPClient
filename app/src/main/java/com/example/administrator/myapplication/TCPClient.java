@@ -8,11 +8,14 @@ import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.io.StringReader;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.Callable;
@@ -23,7 +26,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * Created by Administrator on 2017/12/15 0015.
  */
 
-public class TCPClient implements Runnable
+public class TCPClient
 {
     private Socket mSocket = null;
     private BufferedReader in = null;
@@ -35,7 +38,9 @@ public class TCPClient implements Runnable
     public ReceiveTCPServer mReceiveTCPServer;
     private Date mLastKeepAliveOkTime;
 
-    private String SERVER_DISCONNECT="server_disconnect\n";
+    private String CONNECT_SUCCESS = "connect_success";
+    private String CONNECT_FAIL = "connect_fail";
+    private String SERVER_DISCONNECT="server_disconnect";
 
 
     private Lock mLock;
@@ -48,59 +53,66 @@ public class TCPClient implements Runnable
         }
     };
 
+    private Runnable mReceiveRunable = new Runnable() {
+        @Override
+        public void run() {
+            try {
+                while (true) {
+                    if (!mSocket.isClosed()) {
+                        if (mSocket.isConnected()) {
+                            //接收
+                            if (!mSocket.isInputShutdown()) {
+                                if ((content  = in.readLine()) != null) {
+                                    content  += "\n";
+                                    mHandler.sendMessage(mHandler.obtainMessage());
+                                    //记录最后一次接收到数据的时间
+                                    mLastKeepAliveOkTime = Calendar.getInstance().getTime();
+                                } else {
+
+                                }
+                            }
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                checkIOclosed();
+            }
+        }
+    };
+
 
     public TCPClient(String host, int port)
     {
         mTPCServeraddr = host;
         mServerCom = port;
-        mLock = new ReentrantLock();
         mLastKeepAliveOkTime = Calendar.getInstance().getTime();
-        new Thread(this).start();
-        this.KeepAlive();
-    }
 
+        if(mLock==null)
+            mLock = new ReentrantLock();
 
-
-    @Override
-    public void run() {
-        try {
-            while (true) {
-                if(mSocket==null){
-                    checkIOclosed();
-                    mSocket = new Socket(mTPCServeraddr, mServerCom);
-                    in = new BufferedReader(new InputStreamReader(mSocket
-                            .getInputStream()));
-                    out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(
-                            mSocket.getOutputStream())), true);
-                }
-                if (!mSocket.isClosed()) {
-                    if (mSocket.isConnected()) {
-                       //接收
-                        if (!mSocket.isInputShutdown()) {
-                            if ((content  = in.readLine()) != null) {
-                                content  += "\n";
-                                mHandler.sendMessage(mHandler.obtainMessage());
-                                //记录最后一次接收到数据的时间
-                                mLastKeepAliveOkTime = Calendar.getInstance().getTime();
-                            } else {
-
-                            }
-                        }
-                        /*
-                        //发送
-                        if(!mSocket.isClosed()&& mSocket.isConnected()){
-                            if(!mSocket.isOutputShutdown()&& !mSendStr.isEmpty() ){
-                                out.println(mSendStr);
-                            }
-                        }
-                        */
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    if (mSocket == null) {
+                        checkIOclosed();
+                        mSocket = new Socket(mTPCServeraddr, mServerCom);
+                        in = new BufferedReader(new InputStreamReader(mSocket
+                                .getInputStream()));
+                        out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(
+                                mSocket.getOutputStream())), true);
+                        new Thread(mReceiveRunable).start();
+                        content=CONNECT_SUCCESS;
+                        mHandler.sendMessage(mHandler.obtainMessage());
+                        TCPClient.this.KeepAlive();
                     }
+                }catch (IOException e){
+                    content=CONNECT_FAIL;
+                    mHandler.sendMessage(mHandler.obtainMessage());
                 }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            checkIOclosed();
-        }
+        }).start();
     }
 
     private void checkIOclosed()
@@ -134,9 +146,9 @@ public class TCPClient implements Runnable
                 if(mSocket.isConnected()){
                     if(!mSocket.isOutputShutdown()&& !mSendStr.isEmpty() ){
                         out.println(mSendStr);
-                        mLock.unlock();
                     }
                 }
+                mLock.unlock();
             }
         }).start();
     }
@@ -157,8 +169,15 @@ public class TCPClient implements Runnable
                         }else if(between >5*1000){
                             content=SERVER_DISCONNECT;
                             mHandler.sendMessage(mHandler.obtainMessage());
+                            if(mSocket!=null)
+                                mSocket.close();
+                            mSocket=null;
+                            checkIOclosed();
+                            break;
                         }
                     } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }

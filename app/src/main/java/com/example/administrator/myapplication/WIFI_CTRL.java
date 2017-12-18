@@ -41,7 +41,9 @@ public class WIFI_CTRL extends AppCompatActivity implements OnClickListener,Rece
     Switch mSwitch3;
     TCPClient mTCPClient;
 
-    private String SERVER_DISCONNECT="server_disconnect\n";
+    private String CONNECT_SUCCESS = "connect_success";
+    private String CONNECT_FAIL = "connect_fail";
+    private String SERVER_DISCONNECT="server_disconnect";
 
 
     @Override
@@ -72,6 +74,9 @@ public class WIFI_CTRL extends AppCompatActivity implements OnClickListener,Rece
         mSwitch1.setOnClickListener(this);
         mSwitch2.setOnClickListener(this);
         mSwitch3.setOnClickListener(this);
+
+
+        mButtonConnectWifi.setEnabled(false);
     }
 
     public static String getWifiIpAddr(Context context)
@@ -145,9 +150,26 @@ public class WIFI_CTRL extends AppCompatActivity implements OnClickListener,Rece
         }
 
 
+        //connect success
+        if(str.equals(CONNECT_SUCCESS)){
+            mButtonConnectTcpServer.setEnabled(false);
+            Toast.makeText(this,"连接成功",Toast.LENGTH_SHORT).show();
+            mButtonConnectWifi.setEnabled(true);
+        }
+
+        //connect fail
+        if(str.equals(CONNECT_FAIL)){
+            mButtonConnectTcpServer.setEnabled(true);
+            Toast.makeText(this,"连接失败",Toast.LENGTH_SHORT).show();
+            mButtonConnectWifi.setEnabled(false);
+        }
+
        //disconnect server
         if(str.equals(SERVER_DISCONNECT)){
             Log.d(TAG,"server disconnect...");
+            Toast.makeText(this,"disconnect",Toast.LENGTH_SHORT).show();
+            mButtonConnectWifi.setEnabled(false);
+            mButtonConnectTcpServer.setEnabled(true);
         }
     }
 }
