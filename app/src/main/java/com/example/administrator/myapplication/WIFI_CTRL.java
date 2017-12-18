@@ -41,6 +41,8 @@ public class WIFI_CTRL extends AppCompatActivity implements OnClickListener,Rece
     Switch mSwitch3;
     TCPClient mTCPClient;
 
+    private String SERVER_DISCONNECT="server_disconnect\n";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,6 +131,8 @@ public class WIFI_CTRL extends AppCompatActivity implements OnClickListener,Rece
     }
 
 
+
+
     @Override
     public void RecevieDateFormServer(String str) {
         //“switch,on,off,on”
@@ -140,6 +144,11 @@ public class WIFI_CTRL extends AppCompatActivity implements OnClickListener,Rece
             mTextviewSwitch3.setText(strs[3]);
         }
 
+
+       //disconnect server
+        if(str.equals(SERVER_DISCONNECT)){
+            Log.d(TAG,"server disconnect...");
+        }
     }
 }
 
