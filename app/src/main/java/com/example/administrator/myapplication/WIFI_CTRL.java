@@ -16,12 +16,9 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
-
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.Locale;
+import android.widget.ToggleButton;
 
 
 public class WIFI_CTRL extends AppCompatActivity implements OnClickListener,ReceiveTCPServer {
@@ -31,14 +28,14 @@ public class WIFI_CTRL extends AppCompatActivity implements OnClickListener,Rece
     EditText mEditTextServerCom;
     EditText mEditTextWifiSSID;
     EditText mEditTextWifiPWD;
+    ToggleButton mbtn_machine_run_dir;
+    ToggleButton mbtn_machine_power;
     TextView mTextviewSwitch1;
     TextView mTextviewSwitch2;
     TextView mTextviewSwitch3;
     String mServerIpAddr;
     String TAG = "zougui";
-    Switch mSwitch1;
-    Switch mSwitch2;
-    Switch mSwitch3;
+
     TCPClient mTCPClient;
 
     private String CONNECT_SUCCESS = "connect_success";
@@ -56,9 +53,11 @@ public class WIFI_CTRL extends AppCompatActivity implements OnClickListener,Rece
         mEditTextServerCom = (EditText)findViewById(R.id.edit_tcp_server_com);
         mEditTextWifiSSID = (EditText)findViewById(R.id.edit_neeed_connect_wifi_ssid);
         mEditTextWifiPWD = (EditText)findViewById(R.id.edit_neeed_connect_wifi_pwd);
-        mSwitch1 = (Switch)findViewById(R.id.switch_1);
-        mSwitch2 = (Switch)findViewById(R.id.switch_2);
-        mSwitch3 = (Switch)findViewById(R.id.switch_3);
+
+        mbtn_machine_run_dir = (ToggleButton)findViewById(R.id.btn_machine_run_direction);
+        mbtn_machine_power = (ToggleButton)findViewById(R.id.btn_machine_power);
+        mbtn_machine_power.setOnClickListener(this);
+        mbtn_machine_run_dir.setOnClickListener(this);
 
         mTextviewSwitch1 = (TextView)findViewById(R.id.textview_switch1_status);
         mTextviewSwitch2 = (TextView)findViewById(R.id.textview_switch2_status);
@@ -71,9 +70,7 @@ public class WIFI_CTRL extends AppCompatActivity implements OnClickListener,Rece
 
         mButtonConnectTcpServer.setOnClickListener(this);
         mButtonConnectWifi.setOnClickListener(this);
-        mSwitch1.setOnClickListener(this);
-        mSwitch2.setOnClickListener(this);
-        mSwitch3.setOnClickListener(this);
+
         mButtonConnectWifi.setEnabled(false);
     }
 
@@ -120,10 +117,11 @@ public class WIFI_CTRL extends AppCompatActivity implements OnClickListener,Rece
                 mTCPClient.Send2Server("SSID:"+mEditTextWifiSSID.getText());
                 mTCPClient.Send2Server("PWD:"+mEditTextWifiPWD.getText());
                 break;
-            case R.id.switch_1:
-            case R.id.switch_2:// 按键开关控制
-            case R.id.switch_3:
-                mTCPClient.Send2Server("switch:"+mSwitch1.isChecked()+"-"+mSwitch2.isChecked()+"-"+mSwitch3.isChecked());
+            case R.id.btn_machine_power:
+                mTCPClient.Send2Server("power:"+mbtn_machine_power.isChecked());
+                break;
+            case R.id.btn_machine_run_direction:
+                mTCPClient.Send2Server("direction:"+mbtn_machine_run_dir.isChecked());
                 break;
         }
     }

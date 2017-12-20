@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="30dp"
     android:orientation="vertical"
     tools:context="com.example.administrator.myapplication.WIFI_CTRL">
 
@@ -13,6 +14,7 @@
         <TextView
             android:text="@string/machine_addr"
             android:layout_width="wrap_content"
+            android:gravity="center"
             android:layout_height="match_parent" />
         <EditText
             android:id="@+id/edit_tcp_server_ip"
@@ -22,6 +24,7 @@
         <TextView
             android:text="@string/machine_port"
             android:layout_width="wrap_content"
+            android:gravity="center"
             android:layout_height="match_parent" />
         <EditText
             android:id="@+id/edit_tcp_server_com"
@@ -33,10 +36,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <TextView
+            android:id="@+id/textView"
             android:layout_width="0dp"
-            android:layout_weight="5"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_weight="5" />
+
         <Button
             android:id="@+id/btn_connect_tcp_server"
             android:text="@string/btn_machine_connect"
@@ -66,48 +72,47 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <TextView
             android:layout_width="0dp"
-            android:layout_weight="5"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_weight="5" />
+
         <Button
             android:id="@+id/btn_connect_wifi"
-            android:text="@string/btn_wifi_connect"
-            android:layout_weight="0"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:text="@string/btn_wifi_connect" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <Switch
-            android:id="@+id/switch_1"
-            android:textOff="switch1 off"
-            android:textOn="switch1 on"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:switchMinWidth="120dp"
-            android:layout_height="wrap_content" />
-        <Switch
-            android:id="@+id/switch_2"
-            android:textOff="switch2 off"
-            android:textOn="switch2 on"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:switchMinWidth="120dp"
-            android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-        <Switch
-            android:id="@+id/switch_3"
-            android:layout_width="0dp"
+        <ToggleButton
+            android:id="@+id/btn_machine_run_direction"
+            style="@style/switch_p_n_button"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:switchMinWidth="120dp"
-            android:textOff="switch3 off"
-            android:textOn="switch3 on" />
+            android:background="#00000000"
+            android:checked="false"
+            android:textOff=""
+            android:textOn=""/>
+        <ToggleButton
+            android:id="@+id/btn_machine_power"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#00000000"
+            style="@style/MyToggleButton"
+            android:textOff=""
+            android:textOn=""
+            android:checked="false" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
