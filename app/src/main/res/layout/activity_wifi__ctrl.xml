@@ -11,9 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
-            android:text="ip:"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+            android:text="@string/machine_addr"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent" />
         <EditText
             android:id="@+id/edit_tcp_server_ip"
@@ -21,9 +20,8 @@
             android:layout_weight="4"
             android:layout_height="match_parent" />
         <TextView
-            android:text="com:"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+            android:text="@string/machine_port"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent" />
         <EditText
             android:id="@+id/edit_tcp_server_com"
@@ -41,7 +39,7 @@
             android:layout_height="wrap_content" />
         <Button
             android:id="@+id/btn_connect_tcp_server"
-            android:text="连接"
+            android:text="@string/btn_machine_connect"
             android:layout_weight="0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -52,7 +50,7 @@
         android:orientation="vertical"
         android:layout_height="wrap_content">
         <TextView
-            android:text="wifi ssid:"
+            android:text="@string/wifi_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <EditText
@@ -60,7 +58,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <TextView
-            android:text="password："
+            android:text="@string/wifi_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <EditText
@@ -77,7 +75,7 @@
             android:layout_height="wrap_content" />
         <Button
             android:id="@+id/btn_connect_wifi"
-            android:text="连接wifi"
+            android:text="@string/btn_wifi_connect"
             android:layout_weight="0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="wifi_connect_check_error">请先检测wifi是否打开</string>
+
+    <string name="connect_fail">连接失败</string>
+    <string name="connect_success">连接成功</string>
+    <string name="disconnect">已断开连接</string>
+
+    <string name="machine_addr">机器网络地址</string>
+    <string name="machine_port">端口</string>
+    <string name="btn_machine_connect">连接机器</string>
+
+    <string name="wifi_name">无线网络(ssid)</string>
+    <string name="wifi_password">密码</string>
+    <string name="btn_wifi_connect">连接Wifi</string>
+</resources>

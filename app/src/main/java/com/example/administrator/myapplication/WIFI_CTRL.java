@@ -1,27 +1,27 @@
 package com.example.administrator.myapplication;
 
 import android.content.Context;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
-/// M: add for runtime permission check @{
+
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.net.Socket;
-/// @}
+import java.util.Locale;
 
 
 public class WIFI_CTRL extends AppCompatActivity implements OnClickListener,ReceiveTCPServer {
@@ -74,8 +74,6 @@ public class WIFI_CTRL extends AppCompatActivity implements OnClickListener,Rece
         mSwitch1.setOnClickListener(this);
         mSwitch2.setOnClickListener(this);
         mSwitch3.setOnClickListener(this);
-
-
         mButtonConnectWifi.setEnabled(false);
     }
 
@@ -84,7 +82,7 @@ public class WIFI_CTRL extends AppCompatActivity implements OnClickListener,Rece
         NetworkInfo info = ((ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
 
         if(info== null || info.getType() != ConnectivityManager.TYPE_WIFI){
-            Toast.makeText(context,"请先启动机器",Toast.LENGTH_LONG).show();
+            Toast.makeText(context,R.string.wifi_connect_check_error,Toast.LENGTH_LONG).show();
             return null;
         }else if (info.getType() == ConnectivityManager.TYPE_WIFI) {//当前使用无线网络
             WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
@@ -154,28 +152,31 @@ public class WIFI_CTRL extends AppCompatActivity implements OnClickListener,Rece
 
 
 
+
+
         //connect success
         if(str.equals(CONNECT_SUCCESS)){
             mButtonConnectTcpServer.setEnabled(false);
-            Toast.makeText(this,"连接成功",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,getString(R.string.connect_success),Toast.LENGTH_SHORT).show();
             mButtonConnectWifi.setEnabled(true);
         }
 
         //connect fail
         if(str.equals(CONNECT_FAIL)){
             mButtonConnectTcpServer.setEnabled(true);
-            Toast.makeText(this,"连接失败",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,getString(R.string.connect_fail),Toast.LENGTH_SHORT).show();
             mButtonConnectWifi.setEnabled(false);
         }
 
        //disconnect server
         if(str.equals(SERVER_DISCONNECT)){
             Log.d(TAG,"server disconnect...");
-            Toast.makeText(this,"disconnect",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,getString(R.string.disconnect),Toast.LENGTH_SHORT).show();
             mButtonConnectWifi.setEnabled(false);
             mButtonConnectTcpServer.setEnabled(true);
         }
     }
+
 }
 
 

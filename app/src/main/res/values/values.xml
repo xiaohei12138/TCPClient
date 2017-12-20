@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="wifi_connect_check_error">please check wifi</string>
+
+    <string name="connect_fail">connect fail</string>
+    <string name="connect_success">connect success</string>
+    <string name="disconnect">disconnect</string>
+
+    <string name="machine_addr">machine address</string>
+    <string name="machine_port">machine port</string>
+    <string name="btn_machine_connect">connect machine</string>
+
+    <string name="wifi_name">Wi-Fi(ssid)</string>
+    <string name="wifi_password">Password</string>
+    <string name="btn_wifi_connect">connect Wifi</string>
+</resources>

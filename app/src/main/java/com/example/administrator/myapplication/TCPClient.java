@@ -1,24 +1,21 @@
 package com.example.administrator.myapplication;
 
-import android.nfc.Tag;
+
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.widget.Toast;
+
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.EOFException;
+
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.io.StringReader;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.concurrent.Callable;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -35,7 +32,7 @@ public class TCPClient
     private String mSendStr;
     private String mTPCServeraddr;
     private int mServerCom;
-    public ReceiveTCPServer mReceiveTCPServer;
+    private ReceiveTCPServer mReceiveTCPServer;
     private Date mLastKeepAliveOkTime;
 
     private String CONNECT_SUCCESS = "connect_success";
@@ -67,8 +64,6 @@ public class TCPClient
                                     mHandler.sendMessage(mHandler.obtainMessage());
                                     //记录最后一次接收到数据的时间
                                     mLastKeepAliveOkTime = Calendar.getInstance().getTime();
-                                } else {
-
                                 }
                             }
                         }
@@ -141,11 +136,11 @@ public class TCPClient
             public void run() {
                 mLock.lock();
                 mSendStr = str;
-                if(mSocket==null){
-                }else
-                if(mSocket.isConnected()){
-                    if(!mSocket.isOutputShutdown()&& !mSendStr.isEmpty() ){
-                        out.println(mSendStr);
+                if (mSocket != null) {
+                    if (mSocket.isConnected()) {
+                        if (!mSocket.isOutputShutdown() && !mSendStr.isEmpty()) {
+                            out.println(mSendStr);
+                        }
                     }
                 }
                 mLock.unlock();
