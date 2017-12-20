@@ -114,14 +114,14 @@ public class WIFI_CTRL extends AppCompatActivity implements OnClickListener,Rece
                 connectTPCServer(mEditTextServerIp.getText().toString(),Integer.parseInt(mEditTextServerCom.getText().toString()));
                 break;
             case R.id.btn_connect_wifi:
-                mTCPClient.Send2Server("SSID:"+mEditTextWifiSSID.getText());
-                mTCPClient.Send2Server("PWD:"+mEditTextWifiPWD.getText());
+                SensorDateToServer("SSID:"+mEditTextWifiSSID.getText());
+                SensorDateToServer("PWD:"+mEditTextWifiPWD.getText());
                 break;
             case R.id.btn_machine_power:
-                mTCPClient.Send2Server("power:"+mbtn_machine_power.isChecked());
+                SensorDateToServer("power:"+mbtn_machine_power.isChecked());
                 break;
             case R.id.btn_machine_run_direction:
-                mTCPClient.Send2Server("direction:"+mbtn_machine_run_dir.isChecked());
+                SensorDateToServer("direction:"+mbtn_machine_run_dir.isChecked());
                 break;
         }
     }
@@ -132,7 +132,11 @@ public class WIFI_CTRL extends AppCompatActivity implements OnClickListener,Rece
     }
 
 
-
+    private void SensorDateToServer(String str){
+        if(mTCPClient!=null && str!=null){
+            mTCPClient.Send2Server(str);
+        }
+    }
 
     @Override
     public void RecevieDateFormServer(String str) {
