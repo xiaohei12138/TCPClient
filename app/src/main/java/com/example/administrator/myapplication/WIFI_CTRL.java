@@ -141,6 +141,9 @@ public class WIFI_CTRL extends AppCompatActivity implements OnClickListener,Rece
     @Override
     public void RecevieDateFormServer(String str) {
         //“switch,on,off,on”
+        if(str == null){
+            str=SERVER_DISCONNECT;
+        }
         String[] strs=str.split(",");
         Log.d("zougui",strs[0]);
         if(strs[0].equals("switch")){
@@ -148,6 +151,7 @@ public class WIFI_CTRL extends AppCompatActivity implements OnClickListener,Rece
             mTextviewSwitch2.setText(strs[2]);
             mTextviewSwitch3.setText(strs[3]);
         }
+
 
 
         //connect success
