@@ -30,9 +30,7 @@ public class WIFI_CTRL extends AppCompatActivity implements OnClickListener,Rece
     EditText mEditTextWifiPWD;
     ToggleButton mbtn_machine_run_dir;
     ToggleButton mbtn_machine_power;
-    TextView mTextviewSwitch1;
-    TextView mTextviewSwitch2;
-    TextView mTextviewSwitch3;
+
     String mServerIpAddr;
     String TAG = "zougui";
 
@@ -59,9 +57,7 @@ public class WIFI_CTRL extends AppCompatActivity implements OnClickListener,Rece
         mbtn_machine_power.setOnClickListener(this);
         mbtn_machine_run_dir.setOnClickListener(this);
 
-        mTextviewSwitch1 = (TextView)findViewById(R.id.textview_switch1_status);
-        mTextviewSwitch2 = (TextView)findViewById(R.id.textview_switch2_status);
-        mTextviewSwitch3 = (TextView)findViewById(R.id.textview_switch3_status);
+
 
 
         mServerIpAddr = getWifiIpAddr(this);
@@ -144,15 +140,6 @@ public class WIFI_CTRL extends AppCompatActivity implements OnClickListener,Rece
         if(str == null){
             str=SERVER_DISCONNECT;
         }
-        String[] strs=str.split(",");
-        Log.d("zougui",strs[0]);
-        if(strs[0].equals("switch")){
-            mTextviewSwitch1.setText(strs[1]);
-            mTextviewSwitch2.setText(strs[2]);
-            mTextviewSwitch3.setText(strs[3]);
-        }
-
-
 
 
 
