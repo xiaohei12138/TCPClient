@@ -13,4 +13,7 @@
     <string name="wifi_name">Wi-Fi(ssid)</string>
     <string name="wifi_password">Password</string>
     <string name="btn_wifi_connect">connect Wifi</string>
+
+    <string name="Waring_String_Illegal">Input is illegal, no Spaces</string>
+    <string name="Waring_WIFI_String_empty">Please input WIFI name</string>
 </resources>

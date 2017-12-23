@@ -110,14 +110,29 @@ public class WIFI_CTRL extends AppCompatActivity implements OnClickListener,Rece
                 connectTPCServer(mEditTextServerIp.getText().toString(),Integer.parseInt(mEditTextServerCom.getText().toString()));
                 break;
             case R.id.btn_connect_wifi:
-                SensorDateToServer("SSID:"+mEditTextWifiSSID.getText());
-                SensorDateToServer("PWD:"+mEditTextWifiPWD.getText());
+                if(mEditTextWifiSSID.getText().toString().isEmpty()==true){
+                    Toast.makeText(this,getString(R.string.Waring_WIFI_String_empty),Toast.LENGTH_LONG).show();
+                    break;
+                }
+                if(mEditTextWifiSSID.getText().toString().indexOf(" ") != -1 || mEditTextWifiPWD.getText().toString().indexOf(" ") != -1) {
+                    Toast.makeText(this,getString(R.string.Waring_String_Illegal),Toast.LENGTH_LONG).show();
+                    break;
+                }
+
+                SensorDateToServer("W:"+mEditTextWifiSSID.getText()+" P:"+mEditTextWifiPWD.getText()+" ;;\n");
+
                 break;
             case R.id.btn_machine_power:
-                SensorDateToServer("power:"+mbtn_machine_power.isChecked());
+                if(mbtn_machine_power.isChecked())
+                    SensorDateToServer("P:1\n");
+                else
+                    SensorDateToServer("P:0\n");
                 break;
             case R.id.btn_machine_run_direction:
-                SensorDateToServer("direction:"+mbtn_machine_run_dir.isChecked());
+                if(mbtn_machine_run_dir.isChecked())
+                    SensorDateToServer("O:1\n");
+                else
+                    SensorDateToServer("O:0\n");
                 break;
         }
     }
@@ -140,7 +155,6 @@ public class WIFI_CTRL extends AppCompatActivity implements OnClickListener,Rece
         if(str == null){
             str=SERVER_DISCONNECT;
         }
-
 
 
         //connect success

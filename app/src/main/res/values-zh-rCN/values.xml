@@ -14,4 +14,8 @@
     <string name="wifi_name">无线网络(ssid)</string>
     <string name="wifi_password">密码</string>
     <string name="btn_wifi_connect">连接Wifi</string>
+
+    <string name="Waring_String_Illegal">输入不合法，不能有空格</string>
+    <string name="Waring_WIFI_String_empty">WIFI不能为空</string>
+
 </resources>
